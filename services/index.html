@@ -536,11 +536,11 @@
                   <h1>Services</h1>
                 
                 <h2 id="services-defined">Services Defined<a class="headerlink" href="#services-defined" title="Permanent link">&para;</a></h2>
-<p>Services are singleton objects that serve a specific purpose. For instance, a game might have a PointsService, which manages in-game points for the players.</p>
+<p>Services are singleton objects that serve a specific purpose on the server. For instance, a game might have a PointsService, which manages in-game points for the players.</p>
 <p>A game might have many services. They will serve as the backbone of a game.</p>
 <p>For the sake of example, we will slowly develop PointsService to show how a service is constructed. For full API documentation, visit the <a href="../knitapi/#service">Knit API</a> page.</p>
 <h2 id="creating-services">Creating Services<a class="headerlink" href="#creating-services" title="Permanent link">&para;</a></h2>
-<p>In it's simplest form, a service can be created like so:</p>
+<p>In its simplest form, a service can be created like so:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">PointsService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">CreateService</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;PointsService&quot;</span><span class="p">,</span> <span class="n">Client</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span>
@@ -554,9 +554,9 @@
 <p>The <code>Client</code> table is optional for the constructor. However, it will be added by Knit if left out. For the sake of code clarity, it is recommended to keep it in the constructor as shown above.</p>
 </div>
 <p>The <code>Name</code> field is required. This name is how code outside of your service will find it. This name must be unique from all other services. It is best practice to name your variable the same as the service name (e.g. <code>local PointsService</code> matches <code>Name = "PointsService"</code>).</p>
-<p>The last line (<code>return PointsService</code>) assumes this code is written in a ModuleScript, which is best practice for containing services and controllers.</p>
+<p>The last line (<code>return PointsService</code>) assumes this code is written in a ModuleScript, which is best practice for containing services.</p>
 <h2 id="adding-methods">Adding methods<a class="headerlink" href="#adding-methods" title="Permanent link">&para;</a></h2>
-<p>Services are just simple tables at the end of the day. As such, it is very easy to add methods to the service.</p>
+<p>Services are just simple tables at the end of the day. As such, it is very easy to add methods to services.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -574,7 +574,7 @@
 </td></tr></table>
 
 <h2 id="adding-properties">Adding properties<a class="headerlink" href="#adding-properties" title="Permanent link">&para;</a></h2>
-<p>Again, services are just tables. So we can simply add in fields as we want. In our above method, we are returning <code>0</code> for <code>GetPoints()</code> because we have nowhere to store/retreive points. Likewise, our <code>AddPoints()</code> method can't do anything. Let's change that. Let's create a property that holds a table of points per player:</p>
+<p>Again, services are just tables. So we can simply add in properties as we want. In our above method, we are returning <code>0</code> for <code>GetPoints()</code> because we have nowhere to store/retreive points. Likewise, our <code>AddPoints()</code> method can't do anything. Let's change that. Let's create a property that holds a table of points per player:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">PointsService</span><span class="p">.</span><span class="n">PointsPerPlayer</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div>
 </td></tr></table>
@@ -655,7 +655,7 @@
 </td></tr></table>
 
 <h2 id="knitinit-and-knitstart">KnitInit and KnitStart<a class="headerlink" href="#knitinit-and-knitstart" title="Permanent link">&para;</a></h2>
-<p>In that last code snippet, there's an odd <code>KnitStart()</code> method. This is part of the Knit lifecycle (read more under <a href="../executionmodel/">Execution Model</a>). These methods are optional, but very useful for orchestrating communication between other services.</p>
+<p>In that last code snippet, there's an odd <code>KnitStart()</code> method. This is part of the Knit lifecycle (read more under <a href="../executionmodel/">execution model</a>). These methods are optional, but very useful for orchestrating communication between other services.</p>
 <p>When a service is first created, it is not guaranteed that other services are also created and ready to be used. The <code>KnitInit</code> and <code>KnitStart</code> methods come to save the day! After all services are created and the <code>Knit.Start()</code> method is fired, the <code>KnitInit</code> methods of all services will be fired.</p>
 <p>From the <code>KnitInit</code> method, we can guarantee that all other services have been created. However, we still cannot guarantee that those services are ready to be consumed. Therefore, we can <em>reference</em> them within the <code>Init</code> step, but we should never <em>use</em> them (e.g. use the methods or events attached to those other services).</p>
 <p>After all <code>KnitInit</code> methods have finished, all <code>KnitStart</code> methods are then fired. At this point, we can guarantee that all <code>KnitInits</code> are done, and thus can freely access other services.</p>
