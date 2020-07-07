@@ -264,6 +264,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#knitutil-folder" class="md-nav__link">
+    Knit.Util: Folder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#knitstart-promise" class="md-nav__link">
     Knit.Start() -&gt; Promise
   </a>
@@ -567,6 +574,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#knitutil-folder" class="md-nav__link">
+    Knit.Util: Folder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#knitstart-promise" class="md-nav__link">
     Knit.Start() -&gt; Promise
   </a>
@@ -826,7 +840,7 @@
                 <h2 id="knit">Knit<a class="headerlink" href="#knit" title="Permanent link">&para;</a></h2>
 <h3 id="knitservices-service"><code>Knit.Services: [Service]</code><a class="headerlink" href="#knitservices-service" title="Permanent link">&para;</a></h3>
 <p>[Server-side only]</p>
-<p>A table that contains all created services.</p>
+<p>A table that contains all created <a href="#service">services</a>.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -843,7 +857,7 @@
 </div>
 <h3 id="knitcontrollers-controller"><code>Knit.Controllers: [Controller]</code><a class="headerlink" href="#knitcontrollers-controller" title="Permanent link">&para;</a></h3>
 <p>[Client-side only]</p>
-<p>A table that contains all created controllers.</p>
+<p>A table that contains all created <a href="#controller">controllers</a>.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -858,6 +872,20 @@
 <p class="admonition-title">Note</p>
 <p>Within other controllers, this table should only be accessed during or after the <code>KnitInit</code> stage. While it is safe to reference other controllers at the <code>KnitInit</code> stage, it is <em>not</em> safe to use them. Wait until the <code>KnitStart</code> stage to start using them (e.g. calling methods and events).</p>
 </div>
+<h3 id="knitutil-folder"><code>Knit.Util: Folder</code><a class="headerlink" href="#knitutil-folder" title="Permanent link">&para;</a></h3>
+<p>A folder containing utility modules used by Knit, but also accessible for developers to use.</p>
+<p>This folder contains the following modules:</p>
+<ul>
+<li>Maid</li>
+<li>Event</li>
+<li>Promise</li>
+<li>Thread</li>
+</ul>
+<p>They can be required like any other module:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Event</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Event</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
 <h3 id="knitstart-promise"><code>Knit.Start()</code> -&gt; <code>Promise</code><a class="headerlink" href="#knitstart-promise" title="Permanent link">&para;</a></h3>
 <p>Start Knit. This returns a promise which resolves once all services or controllers are fully initialized and started. The usage of this is the same on the server and the client.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -892,7 +920,7 @@
 
 <h3 id="knitcreatecontrollercontroller-table-controller"><code>Knit.CreateController(controller: Table)</code> -&gt; <code>Controller</code><a class="headerlink" href="#knitcreatecontrollercontroller-table-controller" title="Permanent link">&para;</a></h3>
 <p>[Client-side only]</p>
-<p>Creates a new controller. Returns the controller. Please see the <a href="../controllers/">Controllers</a> documentation for more info.</p>
+<p>Creates a new <a href="#controller">controller</a>. Returns the controller. Please see the <a href="../controllers/">Controllers</a> documentation for more info.</p>
 <p>The provided <code>controller</code> table must contain a unique <code>Name</code> property.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">MyController</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">CreateController</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;MyController&quot;</span> <span class="p">}</span>
 </code></pre></div>
