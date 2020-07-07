@@ -928,6 +928,31 @@
 </code></pre></div>
 </td></tr></table>
 
+<p>Alternatively, we could have put all non-methods within the <code>CreateService</code> constructor:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">PointsService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">CreateService</span> <span class="p">{</span>
+    <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;PointsService&quot;</span><span class="p">;</span>
+    <span class="n">PointsPerPlayer</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">();</span>
+    <span class="n">Client</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">();</span>
+        <span class="n">GiveMePoints</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">();</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">-- The rest of code here</span>
+</code></pre></div>
+</td></tr></table>
+
 <h3 id="client-consumer-localscript">Client Consumer LocalScript<a class="headerlink" href="#client-consumer-localscript" title="Permanent link">&para;</a></h3>
 <p>Example of client-side LocalScript consuming the PointsService:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
