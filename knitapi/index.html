@@ -290,6 +290,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#knitonstart-promise" class="md-nav__link">
+    Knit.OnStart() -&gt; Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#knitcreateserviceservice-table-service" class="md-nav__link">
     Knit.CreateService(service: Table) -&gt; Service
   </a>
@@ -595,6 +602,13 @@
           <li class="md-nav__item">
   <a href="#knitstart-promise" class="md-nav__link">
     Knit.Start() -&gt; Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knitonstart-promise" class="md-nav__link">
+    Knit.OnStart() -&gt; Promise
   </a>
   
 </li>
@@ -919,6 +933,14 @@
 <span class="n">Knit</span><span class="p">.</span><span class="n">Start</span><span class="p">():</span><span class="n">andThen</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Knit is running&quot;</span><span class="p">)</span>
 <span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+<h3 id="knitonstart-promise"><code>Knit.OnStart()</code> -&gt; <code>Promise</code><a class="headerlink" href="#knitonstart-promise" title="Permanent link">&para;</a></h3>
+<p>Wait for Knit to start. This is useful if there are other scripts that need to access Knit services or controllers. If Knit is already started, it resolves the promise immediately.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Wait for Knit to be started:</span>
+<span class="n">Knit</span><span class="p">.</span><span class="n">OnStart</span><span class="p">():</span><span class="n">await</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
 

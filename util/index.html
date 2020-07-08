@@ -269,6 +269,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#remoteevent" class="md-nav__link">
+    RemoteEvent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remoteproperty" class="md-nav__link">
+    RemoteProperty
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -351,6 +365,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#remoteevent" class="md-nav__link">
+    RemoteEvent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remoteproperty" class="md-nav__link">
+    RemoteProperty
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -371,6 +399,7 @@
                 
                 <p>There are some utility modules that come prepackaged with Knit. These are used internally, but are also meant to be accessible to developers.</p>
 <p>These modules are accessible via <code>Knit.Util</code> and must be required, such as <code>require(Knit.Util.Event)</code>.</p>
+<hr />
 <h2 id="event"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Event.lua">Event</a><a class="headerlink" href="#event" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Event.lua">Event</a> module gives basic Roblox Signal functionality. It is easy to instantiate and use an event object.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -400,6 +429,7 @@
 </td></tr></table>
 
 <p>The Connection object internal to the Event module also has a Destroy method associated with it, so it will still play nicely with the Maid module.</p>
+<hr />
 <h2 id="thread"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Thread.lua">Thread</a><a class="headerlink" href="#thread" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Thread.lua">Thread</a> module aims to replace the somewhat-broken built-in thread functions (such as <code>wait</code>, <code>spawn</code>, and <code>delay</code>), which suffer from throttling.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
@@ -429,6 +459,7 @@
 </code></pre></div>
 </td></tr></table>
 
+<hr />
 <h2 id="maid"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Maid.lua">Maid</a><a class="headerlink" href="#maid" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Maid.lua">Maid</a> module is a powerful tool for tracking and cleaning up your messes (hence the name). The Maid module was created by <a href="https://github.com/Quenty">James Onnen</a>. Read his <a href="https://medium.com/roblox-development/how-to-use-a-maid-class-on-roblox-to-manage-state-651bf74de98b">tutorial on Maids</a> for a better understanding of how to use it.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -458,6 +489,7 @@
 </td></tr></table>
 
 <p>Any table with a <code>Destroy</code> method can be added to a maid. If you have a bunch of events that you've created for a custom class, using a maid would be good to clean them all up when you're done with the object. Typically a maid will live with the object with which contains the items being tracked.</p>
+<hr />
 <h2 id="promise"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Promise.lua">Promise</a><a class="headerlink" href="#promise" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Promise.lua">Promise</a> module reproduces the behavior of Promises common in web programming, written by <a href="https://github.com/evaera">evaera</a>. Promises are incredibly useful for managing asynchronous flows. Read the <a href="https://eryn.io/roblox-lua-promise/lib/">official documentation</a> for usage.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
@@ -505,6 +537,94 @@
     <span class="kr">end</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
+
+<hr />
+<h2 id="remoteevent"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteEvent.lua">RemoteEvent</a><a class="headerlink" href="#remoteevent" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteEvent.lua">RemoteEvent</a> module wraps the RemoteEvent object and is used within services and controllers. The only time a developer should ever have to instantiate a RemoteEvent is within the <code>Client</code> table of a service. The behavior differs between the server and the client.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Server-side</span>
+<span class="kd">local</span> <span class="n">remoteEvent</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">Fire</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="p">...)</span>
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">FireExcept</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="p">...)</span>
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">FireAll</span><span class="p">(...)</span>
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">Wait</span><span class="p">()</span>
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">Destroy</span><span class="p">()</span>
+
+<span class="kd">local</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">remoteEvent</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="n">functionHandler</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="p">...))</span>
+<span class="n">connection</span><span class="p">:</span><span class="n">IsConnected</span><span class="p">()</span>
+<span class="n">connection</span><span class="p">:</span><span class="n">Disconnect</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Client side</span>
+<span class="kd">local</span> <span class="n">remoteEvent</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">remoteEventObject</span><span class="p">)</span>
+
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">Fire</span><span class="p">(...)</span>
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">Wait</span><span class="p">()</span>
+<span class="n">remoteEvent</span><span class="p">:</span><span class="n">Destroy</span><span class="p">()</span>
+
+<span class="kd">local</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">remoteEvent</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="n">functionHandler</span><span class="p">(...))</span>
+<span class="n">connection</span><span class="p">:</span><span class="n">IsConnected</span><span class="p">()</span>
+<span class="n">connection</span><span class="p">:</span><span class="n">Disconnect</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Knit manages RemoteEvent objects on the client, so developers should never have to instantiate these themselves on the client unless creating completely custom workflows.</p>
+</div>
+<hr />
+<h2 id="remoteproperty"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteProperty.lua">RemoteProperty</a><a class="headerlink" href="#remoteproperty" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteProperty.lua">RemoteProperty</a> module wraps a ValueBase object to expose properties to the client from the server. The server can read and write to this object, but the client can only read. This is useful when it's overkill to write a combination of a method and event to replicate data to the client.</p>
+<p>The behavior is slightly different between the server and the client.</p>
+<p>When a RemoteProperty is created on the server, a value must be passed to the constructor. The type of the value will determine the ValueBase chosen. For instance, if a string is passed, it will instantiate a StringValue internally. The server can then set/get this value.</p>
+<p>On the client, a RemoteProperty must be instantiated by giving the ValueBase to the constructor.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Server-side</span>
+<span class="kd">local</span> <span class="n">property</span> <span class="o">=</span> <span class="n">RemoteProperty</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">property</span><span class="p">:</span><span class="n">Set</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">value</span> <span class="o">=</span> <span class="n">property</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
+<span class="n">property</span><span class="p">.</span><span class="n">Changed</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">newValue</span><span class="p">)</span> <span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Client-side</span>
+<span class="kd">local</span> <span class="n">property</span> <span class="o">=</span> <span class="n">RemoteProperty</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">valueBaseObject</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">value</span> <span class="o">=</span> <span class="n">property</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
+<span class="n">property</span><span class="p">.</span><span class="n">Changed</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">newValue</span><span class="p">)</span> <span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Knit manages RemoteProperty objects on the client, so developers should never have to instantiate these themselves on the client unless creating completely custom workflows.</p>
+</div>
                 
               
               

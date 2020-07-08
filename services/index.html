@@ -302,6 +302,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -323,8 +330,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#client-consumer-localscript" class="md-nav__link">
-    Client Consumer LocalScript
+  <a href="#client-consumer" class="md-nav__link">
+    Client Consumer
   </a>
   
 </li>
@@ -497,6 +504,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -518,8 +532,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#client-consumer-localscript" class="md-nav__link">
-    Client Consumer LocalScript
+  <a href="#client-consumer" class="md-nav__link">
+    Client Consumer
   </a>
   
 </li>
@@ -724,8 +738,8 @@
 </td></tr></table>
 
 <h3 id="events-server-to-client">Events (Server-to-Client)<a class="headerlink" href="#events-server-to-client" title="Permanent link">&para;</a></h3>
-<p>We should also create an event that we can fire for the clients when their points change. We can use the Event module again, and just put one within the <code>Client</code> table:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+<p>We should also create an event that we can fire for the clients when their points change. We can use the RemoteEvent module (<code>Knit.Util.Remote.RemoteEvent</code>), and just put one within the <code>Client</code> table:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
 
@@ -772,11 +786,15 @@
 </code></pre></div>
 </td></tr></table>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to use <code>RemoteEvent</code> (<em>not</em> <code>Event</code>) for client-exposed events.</p>
+</div>
 <h3 id="events-client-to-server">Events (Client-to-Server)<a class="headerlink" href="#events-client-to-server" title="Permanent link">&para;</a></h3>
 <p>Events can also be fired from the client. This is useful when the client needs to give the server information, but doesn't care about any response from the server. For instance, maybe the client wants to tell the PointsService that it wants some points. This is an odd use-case, but let's just role with it.</p>
 <p>We will create another client-exposed event called <code>GiveMePoints</code> which will randomly give the player points. Again, this is nonesense in the context of an actual game, but useful for example.</p>
 <p>Let's create the event on the PointsService:</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">GiveMePoints</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">GiveMePoints</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
 
@@ -821,6 +839,64 @@
 
 <span class="c1">-- Fire the event:</span>
 <span class="n">PointsService</span><span class="p">.</span><span class="n">GiveMePoints</span><span class="p">:</span><span class="n">Fire</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
+
+<h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
+<p>Knit provides a <code>RemoteProperty</code> module to easily expose valuse to the client. These values are read-only on the client.</p>
+<p>For our example, let's say that we want to show the most points in the game. First, let's create the <code>RemoteProperty</code> object:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">RemoteProperty</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Remote</span><span class="p">.</span><span class="n">RemoteProperty</span><span class="p">)</span>
+
+<span class="n">PointsService</span><span class="p">.</span><span class="n">MostPoints</span> <span class="o">=</span> <span class="n">RemoteProperty</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+
+<p>Now, let's change this object whenever we add points:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kr">function</span> <span class="nc">PointsService</span><span class="p">:</span><span class="nf">AddPoints</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+    <span class="c1">-- Other code from before...</span>
+
+    <span class="c1">-- Set MostPoints value:</span>
+    <span class="kr">if</span> <span class="p">(</span><span class="n">points</span> <span class="o">&gt;</span> <span class="n">self</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">:</span><span class="n">Get</span><span class="p">())</span> <span class="kr">then</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">:</span><span class="n">Set</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+</code></pre></div>
+</td></tr></table>
+
+<p>On the server, the <code>RemoteProperty</code> object has <code>Set</code> and <code>Get</code> methods, and also has a <code>Changed</code> event. On the client, it only has the <code>Get</code> method and <code>Changed</code> event (no <code>Set</code> method on the client; read-only).</p>
+<p>Let's grab this value on the client:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- From a LocalScript</span>
+<span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">PointsService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;PointsService&quot;</span><span class="p">)</span>
+
+<span class="c1">-- Grab value:</span>
+<span class="kd">local</span> <span class="n">mostPoints</span> <span class="o">=</span> <span class="n">PointsService</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
+
+<span class="c1">-- Keep it updated:</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">.</span><span class="n">Changed</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">newMostPoints</span><span class="p">)</span>
+    <span class="n">mostPoints</span> <span class="o">=</span> <span class="n">newMostPoints</span>
+<span class="kr">end</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
 
@@ -882,8 +958,18 @@
 52
 53
 54
-55</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">Event</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Event</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">RemoteEvent</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Remote</span><span class="p">.</span><span class="n">RemoteEvent</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">RemoteProperty</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Remote</span><span class="p">.</span><span class="n">RemoteProperty</span><span class="p">)</span>
 
 <span class="kd">local</span> <span class="n">PointsService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">CreateService</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;PointsService&quot;</span><span class="p">,</span> <span class="n">Client</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span>
 
@@ -892,8 +978,11 @@
 <span class="n">PointsService</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
 
 <span class="c1">-- Client exposed events:</span>
-<span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
-<span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">GiveMePoints</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">GiveMePoints</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+
+<span class="c1">-- Client exposed properties:</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">MostPoints</span> <span class="o">=</span> <span class="n">RemoteProperty</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1">-- Client exposed GetPoints method:</span>
 <span class="kr">function</span> <span class="nc">PointsService</span><span class="p">.</span><span class="nc">Client</span><span class="p">:</span><span class="nf">GetPoints</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
@@ -908,6 +997,9 @@
     <span class="kr">if</span> <span class="p">(</span><span class="n">amount</span> <span class="o">~=</span> <span class="mi">0</span><span class="p">)</span> <span class="kr">then</span>
         <span class="n">self</span><span class="p">.</span><span class="n">PointsChanged</span><span class="p">:</span><span class="n">Fire</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
         <span class="n">self</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">PointsChanged</span><span class="p">:</span><span class="n">Fire</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
+    <span class="kr">end</span>
+    <span class="kr">if</span> <span class="p">(</span><span class="n">points</span> <span class="o">&gt;</span> <span class="n">self</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">:</span><span class="n">Get</span><span class="p">())</span> <span class="kr">then</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">:</span><span class="n">Set</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
     <span class="kr">end</span>
 <span class="kr">end</span>
 
@@ -965,7 +1057,7 @@
 </code></pre></div>
 </td></tr></table>
 
-<h3 id="client-consumer-localscript">Client Consumer LocalScript<a class="headerlink" href="#client-consumer-localscript" title="Permanent link">&para;</a></h3>
+<h3 id="client-consumer">Client Consumer<a class="headerlink" href="#client-consumer" title="Permanent link">&para;</a></h3>
 <p>Example of client-side LocalScript consuming the PointsService:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -987,7 +1079,15 @@
 18
 19
 20
-21</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- From a LocalScript</span>
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- From a LocalScript</span>
 <span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
 
 <span class="kd">local</span> <span class="n">PointsService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;PointsService&quot;</span><span class="p">)</span>
@@ -1003,6 +1103,14 @@
 
 <span class="c1">-- Ask server to give points randomly:</span>
 <span class="n">PointsService</span><span class="p">.</span><span class="n">GiveMePoints</span><span class="p">:</span><span class="n">Fire</span><span class="p">()</span>
+
+<span class="c1">-- Grab MostPoints value:</span>
+<span class="kd">local</span> <span class="n">mostPoints</span> <span class="o">=</span> <span class="n">PointsService</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
+
+<span class="c1">-- Keep MostPoints value updated:</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">MostPoints</span><span class="p">.</span><span class="n">Changed</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">newMostPoints</span><span class="p">)</span>
+    <span class="n">mostPoints</span> <span class="o">=</span> <span class="n">newMostPoints</span>
+<span class="kr">end</span><span class="p">)</span>
 
 <span class="c1">-- Advanced example, using promises to get points:</span>
 <span class="n">PointsService</span><span class="p">:</span><span class="n">GetPointsPromise</span><span class="p">():</span><span class="n">andThen</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
