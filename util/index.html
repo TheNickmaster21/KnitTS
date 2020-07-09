@@ -627,9 +627,11 @@
 2
 3
 4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Server-side</span>
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Server-side</span>
 <span class="kd">local</span> <span class="n">property</span> <span class="o">=</span> <span class="n">RemoteProperty</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">property</span><span class="p">:</span><span class="n">Set</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">property</span><span class="p">:</span><span class="n">Replicate</span><span class="p">()</span> <span class="c1">-- Only for table values</span>
 <span class="kd">local</span> <span class="n">value</span> <span class="o">=</span> <span class="n">property</span><span class="p">:</span><span class="n">Get</span><span class="p">()</span>
 <span class="n">property</span><span class="p">.</span><span class="n">Changed</span><span class="p">:</span><span class="n">Connect</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">newValue</span><span class="p">)</span> <span class="kr">end</span><span class="p">)</span>
 </code></pre></div>
@@ -645,6 +647,10 @@
 </code></pre></div>
 </td></tr></table>
 
+<div class="admonition warning">
+<p class="admonition-title">Tables</p>
+<p>When using a table in a RemoteProperty, you <strong><em>must</em></strong> call <code>property:Replicate()</code> server-side after changing a value in the table in order for the changes to replicate to the client. This is necessary because there is no way to watch for changes on a table (unless you clutter it with a bunch of metatables). Calling <code>Replicate</code> will reserialize the value.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Knit manages RemoteProperty objects on the client, so developers should never have to instantiate these themselves on the client unless creating completely custom workflows.</p>
