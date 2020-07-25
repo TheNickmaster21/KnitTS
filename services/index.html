@@ -672,16 +672,16 @@
 11
 12
 13
-14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Load the Event module and create PointsChanged event:</span>
-<span class="kd">local</span> <span class="n">Event</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Event</span><span class="p">)</span>
-<span class="n">PointsService</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- Load the Signal module and create PointsChanged signal:</span>
+<span class="kd">local</span> <span class="n">Signal</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Signal</span><span class="p">)</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
 
-<span class="c1">-- Modify AddPoints event:</span>
+<span class="c1">-- Modify AddPoints:</span>
 <span class="kr">function</span> <span class="nc">PointsService</span><span class="p">:</span><span class="nf">AddPoints</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">points</span> <span class="o">=</span> <span class="n">self</span><span class="p">:</span><span class="n">GetPoints</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
     <span class="n">points</span> <span class="o">=</span> <span class="n">points</span> <span class="o">+</span> <span class="n">amount</span>
     <span class="n">self</span><span class="p">.</span><span class="n">PointsPerPlayer</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span>
-    <span class="c1">-- Fire event, as long as we actually changed the points:</span>
+    <span class="c1">-- Fire event signal, as long as we actually changed the points:</span>
     <span class="kr">if</span> <span class="p">(</span><span class="n">amount</span> <span class="o">~=</span> <span class="mi">0</span><span class="p">)</span> <span class="kr">then</span>
         <span class="n">self</span><span class="p">.</span><span class="n">PointsChanged</span><span class="p">:</span><span class="n">Fire</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
     <span class="kr">end</span>
@@ -991,7 +991,7 @@
 61
 62
 63</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
-<span class="kd">local</span> <span class="n">Event</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Event</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">Signal</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Signal</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">RemoteEvent</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Remote</span><span class="p">.</span><span class="n">RemoteEvent</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">RemoteProperty</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Remote</span><span class="p">.</span><span class="n">RemoteProperty</span><span class="p">)</span>
 
@@ -999,7 +999,7 @@
 
 <span class="c1">-- Server-exposed events/fields:</span>
 <span class="n">PointsService</span><span class="p">.</span><span class="n">PointsPerPlayer</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">PointsService</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Event</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+<span class="n">PointsService</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
 
 <span class="c1">-- Client exposed events:</span>
 <span class="n">PointsService</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">PointsChanged</span> <span class="o">=</span> <span class="n">RemoteEvent</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
