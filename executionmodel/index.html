@@ -436,7 +436,7 @@
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Only one Script on the server should manage loading services and starting the Knit</li>
-<li>Only one LoalScript on the client shoudl manage loading controllers and starting Knit</li>
+<li>Only one LocalScript on the client should manage loading controllers and starting Knit</li>
 <li>Split up services and controllers into their own modules</li>
 <li>Services should be kept in either ServerStorage or ServerScriptService to avoid being exposed to the client</li>
 <li>Code within <code>KnitInit</code> and within the root scope of the ModuleScript should try to finish ASAP, and should avoid yielding if possible</li>
