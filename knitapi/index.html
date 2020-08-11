@@ -947,15 +947,19 @@
  7
  8
  9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
+10
+11
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Knit</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">game</span><span class="p">:</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;ReplicatedStorage&quot;</span><span class="p">).</span><span class="n">Knit</span><span class="p">)</span>
 
 <span class="c1">----</span>
 <span class="c1">-- Create services or controllers here</span>
 <span class="c1">----</span>
 
 <span class="c1">-- Start Knit:</span>
-<span class="n">Knit</span><span class="p">.</span><span class="n">Start</span><span class="p">():</span><span class="n">andThen</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+<span class="n">Knit</span><span class="p">.</span><span class="n">Start</span><span class="p">():</span><span class="n">Then</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Knit is running&quot;</span><span class="p">)</span>
+<span class="kr">end</span><span class="p">):</span><span class="n">Catch</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
 <span class="kr">end</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
@@ -996,7 +1000,7 @@
 <p>Every method will also have a "Promisefied" version. Just append "Promise" to the name of the event:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">SomeService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;SomeService&quot;</span><span class="p">)</span>
-<span class="n">SomeService</span><span class="p">:</span><span class="n">DoSomethingPromise</span><span class="p">():</span><span class="n">andThen</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span> <span class="p">...</span> <span class="kr">end</span><span class="p">)</span>
+<span class="n">SomeService</span><span class="p">:</span><span class="n">DoSomethingPromise</span><span class="p">():</span><span class="n">Then</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span> <span class="p">...</span> <span class="kr">end</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
 

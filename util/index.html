@@ -567,10 +567,10 @@
 <span class="kr">end</span>
 
 <span class="n">Fetch</span><span class="p">(</span><span class="s2">&quot;https://www.example.com&quot;</span><span class="p">)</span>
-    <span class="p">:</span><span class="n">andThen</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="p">:</span><span class="n">Then</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
     <span class="kr">end</span><span class="p">)</span>
-    <span class="p">:</span><span class="n">catch</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="p">:</span><span class="n">Catch</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
         <span class="n">warn</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
     <span class="kr">end</span><span class="p">)</span>
 </code></pre></div>
@@ -708,12 +708,12 @@
 
 <span class="kr">function</span> <span class="nc">DanceFloor</span><span class="p">.</span><span class="nf">new</span><span class="p">()</span>
     <span class="kd">local</span> <span class="n">self</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({},</span> <span class="n">DanceFloor</span><span class="p">)</span>
-    <span class="n">self</span><span class="p">.</span><span class="n">_nextUpdate</span> <span class="o">=</span> <span class="n">tick</span><span class="p">()</span> <span class="o">+</span> <span class="n">UPDATE_INTERVAL</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">_nextUpdate</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">UPDATE_INTERVAL</span>
     <span class="kr">return</span> <span class="n">self</span>
 <span class="kr">end</span>
 
 <span class="kr">function</span> <span class="nc">DanceFloor</span><span class="p">:</span><span class="nf">HeartbeatUpdate</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
-    <span class="kr">if</span> <span class="p">(</span><span class="n">tick</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">self</span><span class="p">.</span><span class="n">_nextUpdate</span><span class="p">)</span> <span class="kr">then</span>
+    <span class="kr">if</span> <span class="p">(</span><span class="n">time</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">self</span><span class="p">.</span><span class="n">_nextUpdate</span><span class="p">)</span> <span class="kr">then</span>
         <span class="c1">-- Set the assigned instance to a random color:</span>
         <span class="n">self</span><span class="p">.</span><span class="n">_instance</span><span class="p">.</span><span class="n">Color</span> <span class="o">=</span> <span class="n">Color3</span><span class="p">.</span><span class="n">new</span><span class="p">(</span>
             <span class="nb">math.random</span><span class="p">(),</span>
