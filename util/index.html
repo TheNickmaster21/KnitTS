@@ -302,6 +302,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#option" class="md-nav__link">
+    Option
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -413,6 +420,13 @@
         <li class="md-nav__item">
   <a href="#component" class="md-nav__link">
     Component
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option" class="md-nav__link">
+    Option
   </a>
   
 </li>
@@ -747,6 +761,123 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If a component needs to be used on both the server and the client, it is recommended to make two separate component modules for each environment. In the above example, we made a DanceFloor. Ideally, such a module should only run on the client, since it is rapidly changing the color of the part at random. Another DanceFloor component could also be created for the server if desired.</p>
+</div>
+<hr />
+<h2 id="option"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Option.lua">Option</a><a class="headerlink" href="#option" title="Permanent link">&para;</a></h2>
+<p>An Option is a powerful concept taken from <a href="https://doc.rust-lang.org/std/option/index.html">Rust</a> and other languages. The purpose is to represent an otional value. An option can either be <code>Some</code> or <code>None</code>. Using Options helps reduce <code>nil</code> bugs (which can cause silent bugs that can be hard to track down). Options automatically serialize/deserialize across the server/client boundary when passed through services or controllers.</p>
+<p>Using Options is very simple:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kd">local</span> <span class="n">Option</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Option</span><span class="p">)</span>
+
+<span class="c1">-- Returns an Option:</span>
+<span class="kd">local</span> <span class="kr">function</span> <span class="nf">DoSomething</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">rng</span> <span class="o">=</span> <span class="n">Random</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">value</span> <span class="o">=</span> <span class="n">rng</span><span class="p">:</span><span class="n">NextNumber</span><span class="p">()</span>
+    <span class="kr">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="kr">then</span>
+        <span class="kr">return</span> <span class="n">Option</span><span class="p">.</span><span class="n">Some</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="kr">else</span>
+        <span class="kr">return</span> <span class="n">Option</span><span class="p">.</span><span class="n">None</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="c1">-- Get option value:</span>
+<span class="kd">local</span> <span class="n">value</span> <span class="o">=</span> <span class="n">DoSomething</span><span class="p">()</span>
+
+<span class="c1">-- Match if the value is &#39;some&#39; or &#39;none&#39;:</span>
+<span class="n">value</span><span class="p">:</span><span class="n">Match</span> <span class="p">{</span>
+    <span class="n">Some</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got value:&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span>
+    <span class="n">None</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got no value&quot;</span><span class="p">)</span> <span class="kr">end</span>
+<span class="p">}</span>
+
+<span class="c1">-- Optionally, use IsSome() and Unwrap():</span>
+<span class="kr">if</span> <span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="n">IsSome</span><span class="p">())</span> <span class="kr">then</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Got value:&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="n">Unwrap</span><span class="p">())</span>
+<span class="kr">end</span>
+</code></pre></div>
+</td></tr></table>
+
+<p>Because these are automatically serialized/deserialized in services and controllers, they work great in cases where a returned result is uncertain:</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="c1">-- SERVICE:</span>
+<span class="kd">local</span> <span class="n">MyService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">CreateService</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;MyService&quot;</span> <span class="p">}</span>
+<span class="kd">local</span> <span class="n">Option</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="n">Knit</span><span class="p">.</span><span class="n">Util</span><span class="p">.</span><span class="n">Option</span><span class="p">)</span>
+
+<span class="kr">function</span> <span class="nc">MyService</span><span class="p">.</span><span class="nc">Client</span><span class="p">:</span><span class="nf">GetWeapon</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">weaponName</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">weapon</span> <span class="o">=</span> <span class="n">TryToGetWeaponSomehow</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">weaponName</span><span class="p">)</span>
+    <span class="kr">if</span> <span class="p">(</span><span class="n">weapon</span><span class="p">)</span> <span class="kr">then</span>
+        <span class="kr">return</span> <span class="n">Option</span><span class="p">.</span><span class="n">Some</span><span class="p">(</span><span class="n">weapon</span><span class="p">)</span>
+    <span class="kr">else</span>
+        <span class="kr">return</span> <span class="n">Option</span><span class="p">.</span><span class="n">None</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="c1">----</span>
+
+<span class="c1">-- CONTROLLER:</span>
+<span class="kd">local</span> <span class="n">MyController</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">CreateController</span> <span class="p">{</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;MyController&quot;</span> <span class="p">}</span>
+
+<span class="kr">function</span> <span class="nc">MyController</span><span class="p">:</span><span class="nf">KnitStart</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">MyService</span> <span class="o">=</span> <span class="n">Knit</span><span class="p">.</span><span class="n">GetService</span><span class="p">(</span><span class="s2">&quot;MyService&quot;</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">weaponOption</span> <span class="o">=</span> <span class="n">MyService</span><span class="p">:</span><span class="n">GetWeapon</span><span class="p">(</span><span class="s2">&quot;SomeWeapon&quot;</span><span class="p">)</span>
+    <span class="n">weaponOption</span><span class="p">:</span><span class="n">Match</span> <span class="p">{</span>
+        <span class="n">Some</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">weapon</span><span class="p">)</span> <span class="cm">--[[ Do something with weapon ]]</span> <span class="kr">end</span><span class="p">,</span>
+        <span class="n">None</span> <span class="o">=</span> <span class="kr">function</span><span class="p">()</span> <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No weapon found&quot;</span><span class="p">)</span> <span class="kr">end</span>
+    <span class="p">}</span>
+<span class="kr">end</span>
+</code></pre></div>
+</td></tr></table>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Attempting to unwrap an option with no value will throw an error. This is intentional. The purpose is to avoid unhandled <code>nil</code> cases. Whenever calling <code>Unwrap()</code>, be sure that <code>IsSome()</code> was first checked. Using the <code>Match</code> pattern is the easiest way to handle both Some and None cases.</p>
 </div>
                 
               
