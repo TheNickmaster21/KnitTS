@@ -452,8 +452,8 @@
                 <p>There are some utility modules that come prepackaged with Knit. These are used internally, but are also meant to be accessible to developers.</p>
 <p>These modules are accessible via <code>Knit.Util</code> and must be required, such as <code>require(Knit.Util.Signal)</code>.</p>
 <hr />
-<h2 id="signal"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Signal.lua">Signal</a><a class="headerlink" href="#signal" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Signal.lua">Signal</a> module gives basic Roblox Signal functionality. It is easy to instantiate and use a signal object.</p>
+<h2 id="signal"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Signal.lua">Signal</a><a class="headerlink" href="#signal" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Signal.lua">Signal</a> module gives basic Roblox Signal functionality. It is easy to instantiate and use a signal object.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -482,8 +482,8 @@
 
 <p>The Connection object internal to the Signal module also has a Destroy method associated with it, so it will still play nicely with the Maid module.</p>
 <hr />
-<h2 id="thread"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Thread.lua">Thread</a><a class="headerlink" href="#thread" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Thread.lua">Thread</a> module aims to replace the somewhat-broken built-in thread functions (such as <code>wait</code>, <code>spawn</code>, and <code>delay</code>), which suffer from throttling.</p>
+<h2 id="thread"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Thread.lua">Thread</a><a class="headerlink" href="#thread" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Thread.lua">Thread</a> module aims to replace the somewhat-broken built-in thread functions (such as <code>wait</code>, <code>spawn</code>, and <code>delay</code>), which suffer from throttling.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -512,8 +512,8 @@
 </td></tr></table>
 
 <hr />
-<h2 id="maid"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Maid.lua">Maid</a><a class="headerlink" href="#maid" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Maid.lua">Maid</a> module is a powerful tool for tracking and cleaning up your messes (hence the name). The Maid module was created by <a href="https://github.com/Quenty">James Onnen</a>. Read his <a href="https://medium.com/roblox-development/how-to-use-a-maid-class-on-roblox-to-manage-state-651bf74de98b">tutorial on Maids</a> for a better understanding of how to use it.</p>
+<h2 id="maid"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Maid.lua">Maid</a><a class="headerlink" href="#maid" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Maid.lua">Maid</a> module is a powerful tool for tracking and cleaning up your messes (hence the name). The Maid module was created by <a href="https://github.com/Quenty">James Onnen</a>. Read his <a href="https://medium.com/roblox-development/how-to-use-a-maid-class-on-roblox-to-manage-state-651bf74de98b">tutorial on Maids</a> for a better understanding of how to use it.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -542,8 +542,8 @@
 
 <p>Any table with a <code>Destroy</code> method can be added to a maid. If you have a bunch of events that you've created for a custom class, using a maid would be good to clean them all up when you're done with the object. Typically a maid will live with the object with which contains the items being tracked.</p>
 <hr />
-<h2 id="promise"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Promise.lua">Promise</a><a class="headerlink" href="#promise" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Promise.lua">Promise</a> module reproduces the behavior of Promises common in web programming, written by <a href="https://github.com/evaera">evaera</a>. Promises are incredibly useful for managing asynchronous flows. Read the <a href="https://eryn.io/roblox-lua-promise/lib/">official documentation</a> for usage.</p>
+<h2 id="promise"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Promise.lua">Promise</a><a class="headerlink" href="#promise" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Promise.lua">Promise</a> module reproduces the behavior of Promises common in web programming, written by <a href="https://github.com/evaera">evaera</a>. Promises are incredibly useful for managing asynchronous flows. Read the <a href="https://eryn.io/roblox-lua-promise/lib/">official documentation</a> for usage.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -591,8 +591,8 @@
 </td></tr></table>
 
 <hr />
-<h2 id="remoteevent"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteEvent.lua">RemoteEvent</a><a class="headerlink" href="#remoteevent" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteEvent.lua">RemoteEvent</a> module wraps the RemoteEvent object and is used within services and controllers. The only time a developer should ever have to instantiate a RemoteEvent is within the <code>Client</code> table of a service. The behavior differs between the server and the client.</p>
+<h2 id="remoteevent"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Remote/RemoteEvent.lua">RemoteEvent</a><a class="headerlink" href="#remoteevent" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Remote/RemoteEvent.lua">RemoteEvent</a> module wraps the RemoteEvent object and is used within services and controllers. The only time a developer should ever have to instantiate a RemoteEvent is within the <code>Client</code> table of a service. The behavior differs between the server and the client.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -646,8 +646,8 @@
 <p>Knit manages RemoteEvent objects on the client, so developers should never have to instantiate these themselves on the client unless creating completely custom workflows.</p>
 </div>
 <hr />
-<h2 id="remoteproperty"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteProperty.lua">RemoteProperty</a><a class="headerlink" href="#remoteproperty" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Remote/RemoteProperty.lua">RemoteProperty</a> module wraps a ValueBase object to expose properties to the client from the server. The server can read and write to this object, but the client can only read. This is useful when it's overkill to write a combination of a method and event to replicate data to the client.</p>
+<h2 id="remoteproperty"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Remote/RemoteProperty.lua">RemoteProperty</a><a class="headerlink" href="#remoteproperty" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Remote/RemoteProperty.lua">RemoteProperty</a> module wraps a ValueBase object to expose properties to the client from the server. The server can read and write to this object, but the client can only read. This is useful when it's overkill to write a combination of a method and event to replicate data to the client.</p>
 <p>The behavior is slightly different between the server and the client.</p>
 <p>When a RemoteProperty is created on the server, a value must be passed to the constructor. The type of the value will determine the ValueBase chosen. For instance, if a string is passed, it will instantiate a StringValue internally. The server can then set/get this value.</p>
 <p>On the client, a RemoteProperty must be instantiated by giving the ValueBase to the constructor.</p>
@@ -684,8 +684,8 @@
 <p>Knit manages RemoteProperty objects on the client, so developers should never have to instantiate these themselves on the client unless creating completely custom workflows.</p>
 </div>
 <hr />
-<h2 id="component"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Component.lua">Component</a><a class="headerlink" href="#component" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Component.lua">Component</a> class allows developers to bind custom component classes to in-game objects based on tags provided by the <a href="https://developer.roblox.com/en-us/api-reference/class/CollectionService">CollectionService</a>.</p>
+<h2 id="component"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Component.lua">Component</a><a class="headerlink" href="#component" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Component.lua">Component</a> class allows developers to bind custom component classes to in-game objects based on tags provided by the <a href="https://developer.roblox.com/en-us/api-reference/class/CollectionService">CollectionService</a>.</p>
 <p>For instance, a component might be created called <code>DanceFloor</code>, which has the purpose of making a part flash random colors. Here's what our DanceFloor component module might look like:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -757,13 +757,13 @@
 </td></tr></table>
 
 <p>Lastly, simply assign parts within the game with the <code>DanceFloor</code> tag, and the DanceFloor component will automatically be instantiated for those objects. For editing tags within Studio, check out the <a href="https://www.roblox.com/library/948084095/Tag-Editor">Tag Editor</a> plugin.</p>
-<p>The full API for components is listed within the <a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Component.lua">Component</a> module.</p>
+<p>The full API for components is listed within the <a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Component.lua">Component</a> module.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If a component needs to be used on both the server and the client, it is recommended to make two separate component modules for each environment. In the above example, we made a DanceFloor. Ideally, such a module should only run on the client, since it is rapidly changing the color of the part at random. Another DanceFloor component could also be created for the server if desired.</p>
 </div>
 <hr />
-<h2 id="option"><a href="https://github.com/Sleitnick/Knit/blob/master/src/Knit/Util/Option.lua">Option</a><a class="headerlink" href="#option" title="Permanent link">&para;</a></h2>
+<h2 id="option"><a href="https://github.com/Sleitnick/Knit/blob/main/src/Knit/Util/Option.lua">Option</a><a class="headerlink" href="#option" title="Permanent link">&para;</a></h2>
 <p>An Option is a powerful concept taken from <a href="https://doc.rust-lang.org/std/option/index.html">Rust</a> and other languages. The purpose is to represent an otional value. An option can either be <code>Some</code> or <code>None</code>. Using Options helps reduce <code>nil</code> bugs (which can cause silent bugs that can be hard to track down). Options automatically serialize/deserialize across the server/client boundary when passed through services or controllers.</p>
 <p>Using Options is very simple:</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
