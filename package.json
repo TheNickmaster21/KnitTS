@@ -1,0 +1,10 @@
+{
+    "name": "knitts",
+    "main": "src/Knit/init.lua",
+    "types": "scr/Knit/init.d.ts",
+    "devDependencies": {
+        "@rbxts/types": "1.0.418"
+    },
+    "dependencies": {},
+    "files": [ "src/Knit" ]
+}
