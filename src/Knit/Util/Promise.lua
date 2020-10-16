@@ -1,4 +1,20 @@
 --[[
+    If roblox-ts is detected then return the roblox-ts promise implementation instead
+    Thank you @grilme99
+]] 
+
+local TS = _G[script.Parent]
+if TS then
+    return setmetatable({
+    new = function(executor)
+        return TS.Promise.new(function(resolve, reject)
+        TS.Promise.spawn(executor, resolve, reject)
+        end)
+    end
+    }, { __index = TS.Promise })
+end
+
+--[[
 	An implementation of Promises similar to Promise/A+.
 ]]
 
