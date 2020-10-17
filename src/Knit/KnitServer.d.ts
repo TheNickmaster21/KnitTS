@@ -19,8 +19,18 @@ declare namespace KnitServer {
     function OnStart(): Promise<void>;
 
     interface Util {
+        'Remote': {
+            'RemoteEvent': ModuleScript;
+            'RemoteProperty': ModuleScript;
+        };
+        'Component': ModuleScript;
         'Maid': ModuleScript;
-        // TODO
+        'Option': ModuleScript;
+        'Promise': ModuleScript;
+        'Ser': ModuleScript;
+        'Signal': ModuleScript;
+        'TableUtil': ModuleScript;
+        'Thread': ModuleScript;
     }
 
     interface Service {

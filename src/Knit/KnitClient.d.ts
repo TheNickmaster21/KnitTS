@@ -11,6 +11,7 @@ declare namespace KnitClient {
     function GetService(serviceName: string): Service;
 
     function Start(): Promise<void>;
+    function OnStart(): Promise<void>;
 }
 
 interface Controller {
